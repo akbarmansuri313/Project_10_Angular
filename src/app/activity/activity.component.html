@@ -1,0 +1,86 @@
+<div align="center">
+
+    <h1 *ngIf="!form.data.id" style="margin-bottom: 5px; color: navy">
+        Add Activity
+    </h1>
+    <h1 *ngIf="form.data.id>0" style="margin-bottom: 5px; color: navy">
+        Update Activity
+    </h1>
+
+    <div style="height: 20px; margin-bottom: 10px;">
+        <h3 style="margin: 0; color: green;" *ngIf="!form.error && form.message">
+            {{ form.message }}
+        </h3>
+        <h3 style="margin: 0; color: red;" *ngIf="form.error && form.message">
+            {{ form.message }}
+        </h3>
+    </div>
+
+    <table>
+
+        <tr>
+            <th align="left">Activity Id<span style="color:red">*</span></th>
+            <td>
+                <input type="text" name="activityId" [(ngModel)]="form.data.activityId" placeholder="Enter Activity Id">
+            </td>
+            <td style="position: fixed; color: red;">
+                {{form.inputerror.activityId}}
+            </td>
+        </tr>
+
+        <tr>
+            <th align="left">Activity Name<span style="color:red">*</span></th>
+            <td>
+                <input type="text" name="activityName" [(ngModel)]="form.data.activityName"
+                    placeholder="Enter Activity Name">
+            </td>
+            <td style="position: fixed; color: red;">
+                {{form.inputerror.activityName}}
+            </td>
+        </tr>
+
+
+
+        <tr>
+            <th align="left">Performed By<span style="color:red">*</span></th>
+            <td>
+                <input type="text" name="performedBy" [(ngModel)]="form.data.performedBy" placeholder="Performed By">
+            </td>
+            <td style="position: fixed; color: red;">
+                {{form.inputerror.performedBy}}
+            </td>
+        </tr>
+
+        <tr>
+            <th align="left">Actvity date<span style="color: red">*</span></th>
+            <td><input type="date" name="activityTime" [(ngModel)]="form.data.activityTime" [ngModel]="form.data.activityTime | date:'yyyy-MM-dd'" placeholder="Select Date " style="width: 97%;"></td>
+            <td style="position: fixed; color: red;">{{form.inputerror.activityTime}}</td>
+        </tr>
+
+        <tr>
+            <th align="left">Activity Status<span style="color:red">*</span></th>
+            <td>
+                <select name="activityStatus" [(ngModel)]="form.data.activityStatus" style="width:170px;">
+                    <option value="undefined">------------Select------------</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+
+                </select>
+            </td>
+            <td style="position: fixed; color: red;">
+                {{form.inputerror.activityStatus}}
+            </td>
+        </tr>
+
+        <tr></tr>
+
+        <tr>
+            <th></th>
+            <td align="left" colspan="2">
+                <button (click)="submit()">save</button> &nbsp;
+                <button (click)="reset()">reset</button>
+            </td>
+        </tr>
+
+    </table>
+</div>

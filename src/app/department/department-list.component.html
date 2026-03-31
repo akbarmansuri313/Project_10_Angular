@@ -1,0 +1,74 @@
+
+
+<div align="center">
+    <h1 align="center" style="margin-bottom: 5px; color: navy;">Department List</h1>
+
+    <div style="height: 20px; margin-bottom: 10px; text-align: center;">
+        <h3 style="margin: 0; color: green;" *ngIf="!form.error && form.message">{{ form.message }}</h3>
+        <h3 style="margin: 0; color: red;" *ngIf="form.error && form.message">{{ form.message }}</h3>
+    </div>
+
+    <div *ngIf="form.list.length > 0">
+        <table style="width: 100%">
+            <tr>
+                <td align="center">
+                    <label><b>Department Name: </b></label>
+                    <input type="text" name="departmentName" [(ngModel)]="form.searchParams.departmentName" placeholder="Enter Department Name">&nbsp; &nbsp;&nbsp;
+
+                    
+                    <label><b>Department Code: </b></label>
+                    <input type="text" name="departmentCode" [(ngModel)]="form.searchParams.departmentCode" placeholder="Enter Department Code">&nbsp;
+
+
+                    <button (click)="search()">search</button>&nbsp;
+                    <button (click)="reset()">reset</button>
+                </td>
+            </tr>
+        </table>
+
+        <br>
+
+        <table border="1" style="width: 100%; border: groove;">
+            <tr style="background-color: #e1e6f1e3;">
+                <th><input type="checkbox" [(ngModel)]="isMasterSel" (change)="checkUncheckAll($event)" /></th>
+                <th>S.No</th>
+                 <th>Department Id</th>
+                <th>Department Name</th>
+                <th>Department Code</th>
+                <th>Head Name</th>
+                <th>Department Status</th>
+                 <th>Edit</th>
+              
+            </tr>
+
+            <tr align="center" *ngFor="let m of form.list; let i = index">
+                <td><input type="checkbox" #checkboxes (change)="checklistUpdate()" [id]="m.id" [value]="isMasterSel"> 
+               
+                <td>{{(form.pageNo*5)+i+ 1}}</td>
+                <td>{{m.departmentId}}</td>
+                <td>{{m.departmentName}}</td>
+                <td>{{m.departmentCode}}</td>
+                <td>{{m.headName}}</td>
+                
+                <td>{{m.departmentStatus}}</td>
+              
+                <td><a (click)="forward( '/department/' +  m.id)" style="cursor: pointer; color: blue;"  >Edit</a></td>
+            </tr>
+        </table>
+
+        <br>
+
+        <table style="width: 100%">
+            <tr>
+                <td style="width: 25%"><button (click)="previous()" [disabled]="form.pageNo == 0">previous</button></td>
+                <td align="center" style="width: 25%"><button (click)="forward('/department')">new</button></td>
+                <td align="center" style="width: 25%"><button (click)="deleteMany()">delete</button></td>
+                <td style="width: 25%" align="right"><button (click)="next()" [disabled]="form.nextListSize == 0">next</button></td>
+            </tr>
+        </table>
+    </div>
+
+    <br>
+
+    <div *ngIf="form.list.length == 0"><button (click)="reset()">Back</button></div>
+</div>

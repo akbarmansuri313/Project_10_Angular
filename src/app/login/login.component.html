@@ -1,0 +1,104 @@
+<style>
+
+.login-bg{
+background-image: url('/assets/login2.jpg');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+}
+
+.login-card{
+width:550px; 
+border-radius:10px;
+background: linear-gradient(to bottom right, white, grey);
+box-shadow: 9px 8px 7px #001a33;
+}
+
+.input-group-text{
+background:#ebebe0;
+}
+
+</style>
+
+<br>
+<br>
+<br>
+<div class="container-fluid vh-100 d-flex justify-content-center align-items-center login-bg">
+
+  <div class="card shadow-lg p-4 login-card">
+
+    <h3 class="text-center text-dark mb-3"><b>Login</b></h3>
+
+    <!-- Message -->
+    <div class="text-center mb-2">
+      <span class="alert alert-success p-1" *ngIf="!form.error && form.message">
+        {{form.message}}
+      </span>
+
+      <span class="alert alert-danger p-1" *ngIf="form.error && form.message">
+        {{form.message}}
+      </span>
+    </div>
+
+    <!-- Email -->
+    <label class="fw-bold">Email Id <span class="text-danger">*</span></label>
+
+    <div class="input-group mb-1">
+      <span class="input-group-text">
+        <i class="fa fa-envelope"></i>
+      </span>
+
+      <input
+        type="text"
+        class="form-control"
+        name="loginId"
+        [(ngModel)]="form.data.loginId"
+        placeholder="Enter email">
+    </div>
+
+    <small class="text-danger">{{form.inputerror.loginId}}</small>
+
+    <!-- Password -->
+    <label class="fw-bold mt-3">Password <span class="text-danger">*</span></label>
+
+    <div class="input-group mb-1">
+      <span class="input-group-text">
+        <i class="fa fa-lock"></i>
+      </span>
+
+      <input
+        type="password"
+        class="form-control"
+        name="password"
+        [(ngModel)]="form.data.password"
+        placeholder="Enter password">
+    </div>
+
+    <small class="text-danger">{{form.inputerror.password}}</small>
+
+    <!-- Buttons -->
+    <div class="text-center mt-4">
+
+      <button class="btn btn-success me-3 px-4" (click)="signIn()">
+        Sign In
+      </button>&nbsp;&nbsp;&nbsp;
+
+      <button class="btn btn-primary px-4" (click)="signUp()">
+        Sign Up
+      </button>
+
+    </div>
+
+    <!-- Forget Password -->
+    <div class="text-center mt-3">
+      <a routerLink="/forgetpassword" class="text-dark">
+        <b><u>Forget my password ?</u></b>
+      </a>
+    </div>
+
+  </div>
+
+</div>
+<br>
+<br>
+<br>

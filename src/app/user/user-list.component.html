@@ -1,0 +1,114 @@
+<br>
+<br>
+<br>
+<div class="container my-4">
+
+  <div class="card shadow-sm p-4">
+
+    <h1 class="text-center text-primary mb-4">{{ 'UserList.Title' | translate }}</h1>
+
+    <!-- Success / Error Messages -->
+    <div class="text-center mb-3">
+      <div *ngIf="!form.error && form.message" class="alert alert-success py-1">
+        {{ form.message }}
+      </div>
+      <div *ngIf="form.error && form.message" class="alert alert-danger py-1">
+        {{ form.message }}
+      </div>
+    </div>
+
+    <!-- Search Filters -->
+    <div *ngIf="form.list.length > 0" class="mb-3">
+      <form class="row g-2 align-items-end">
+
+        <div class="col-md-3">
+          <label class="form-label fw-bold">{{ 'UserList.SearchFields.FirstName' | translate }}</label>
+          <input type="text" class="form-control" name="firstName" [(ngModel)]="form.searchParams.firstName"
+            [placeholder]="'UserList.Placeholders.FirstName' | translate">
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label fw-bold">{{ 'UserList.SearchFields.LoginId' | translate }}</label>
+          <input type="text" class="form-control" name="loginId" [(ngModel)]="form.searchParams.loginId"
+            [placeholder]="'UserList.Placeholders.LoginId' | translate">
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label fw-bold">{{ 'UserList.SearchFields.Role' | translate }}</label>
+          <select class="form-select" name="roleId" [(ngModel)]="form.searchParams.roleId">
+            <option value="undefined">{{ 'UserList.SelectOptions.Select' | translate }}</option>
+            <option *ngFor="let obj of form.preload.roleList" [value]="obj.key">{{ obj.value }}</option>
+          </select>
+        </div>
+
+        <div class="col-md-3 d-flex">
+          <button type="button" class="btn btn-primary me-2" (click)="search()">{{ 'UserList.Buttons.Search' | translate }}</button>
+          <button type="button" class="btn btn-secondary" (click)="reset()">{{ 'UserList.Buttons.Reset' | translate }}</button>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- User Table -->
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle text-center">
+        <thead class="table-light">
+          <tr>
+            <th><input type="checkbox" [(ngModel)]="isMasterSel" (change)="checkUncheckAll($event)" /></th>
+            <th>{{ 'UserList.Table.SNo' | translate }}</th>
+            <th>{{ 'Picture' | translate }}</th>
+            <th>{{ 'UserList.Table.FirstName' | translate }}</th>
+            <th>{{ 'UserList.Table.LastName' | translate }}</th>
+            <th>{{ 'UserList.Table.LoginId' | translate }}</th>
+            <th>{{ 'UserList.Table.Dob' | translate }}</th>
+            <th>{{ 'UserList.Table.Gender' | translate }}</th>
+            <th>{{ 'UserList.Table.Role' | translate }}</th>
+            <th>{{ 'UserList.Table.Mobile' | translate }}</th>
+            <th>{{ 'UserList.Table.Status' | translate }}</th>
+            <th>{{ 'UserList.Table.Edit' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let m of form.list; let i = index">
+            <td><input type="checkbox" #checkboxes (change)="checklistUpdate()" [id]="m.id" [value]="isMasterSel"></td>
+            <td>{{ (form.pageNo * 5) + i + 1 }}</td>
+            <td><img src="http://localhost:8080/User/profilePic/{{m.id}}" class="img-thumbnail" height="50" width="80"></td>
+            <td>{{ m.firstName }}</td>
+            <td>{{ m.lastName }}</td>
+            <td>{{ m.loginId }}</td>
+            <td>{{ m.dob | date:'dd-MM-yyyy' }}</td>
+            <td>{{ m.gender }}</td>
+            <td>{{ m.roleName }}</td>
+            <td>{{ m.phone }}</td>
+            <td>{{ m.status }}</td>
+            <td>
+              <a (click)="forward('/user/' + m.id)" style="cursor: pointer; color: blue;">
+                {{ 'UserList.Table.Edit' | translate }}
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination & Actions -->
+    <div class="d-flex justify-content-between mt-3">
+      <button class="btn btn-outline-primary" (click)="previous()" [disabled]="form.pageNo == 0">{{ 'UserList.Buttons.Previous' | translate }}</button>
+      <div>
+        <button class="btn btn-success me-2" (click)="forward('/user')">{{ 'UserList.Buttons.New' | translate }}</button>
+        <button class="btn btn-danger" (click)="deleteMany()">{{ 'UserList.Buttons.Delete' | translate }}</button>
+      </div>
+      <button class="btn btn-outline-primary" (click)="next()" [disabled]="form.nextListSize == 0">{{ 'UserList.Buttons.Next' | translate }}</button>
+    </div>
+
+    <!-- No Users -->
+    <div *ngIf="form.list.length == 0" class="text-center mt-4">
+      <button class="btn btn-secondary" (click)="reset()">{{ 'UserList.Buttons.Back' | translate }}</button>
+    </div>
+
+  </div>
+
+</div>
+<br>
+<br>
+<br>

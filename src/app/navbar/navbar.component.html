@@ -1,0 +1,172 @@
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top"
+     style="background-image: linear-gradient(to bottom right, black, grey);">
+
+  <div class="container-fluid">
+
+    <!-- Logo -->
+    <a class="navbar-brand" [routerLink]="['/welcome']">
+      <img src="assets/files/custom.png" height="40" width="120">
+    </a>
+
+    <!-- Mobile Toggle -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarContent">
+
+      <!-- Left Menu (Logged-in User) -->
+      <ul class="navbar-nav ml-auto" *ngIf="isLogin()">
+
+       
+        <!-- My Profile / Change Password / Logout Dropdown -->
+      
+        <!-- User Management Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+            <i class="fa fa-users"></i> User
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" [routerLink]="['/user']">
+              <i class="fa fa-user-plus"></i> Add User</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/userList']">
+              <i class="fa fa-list"></i> User List</a></li>
+          </ul>
+        </li>
+
+        <!-- Role Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+            <i class="fa fa-user-tag"></i> Role
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" [routerLink]="['/role']">
+              <i class="fa fa-plus"></i> Add Role</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/roleList']">
+              <i class="fa fa-list"></i> Role List</a></li>
+          </ul>
+        </li>
+
+        <!-- College Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+            <i class="fa fa-university"></i> College
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" [routerLink]="['/college']">
+              <i class="fa fa-plus"></i> Add College</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/collegeList']">
+              <i class="fa fa-building"></i> College List</a></li>
+          </ul>
+        </li>
+
+        <!-- Student Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+            <i class="fa fa-user-graduate"></i> Student
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" [routerLink]="['/student']">
+              <i class="fa fa-user-plus"></i> Add Student</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/studentList']">
+              <i class="fa fa-list"></i> Student List</a></li>
+          </ul>
+        </li>
+
+        <!-- Marksheet Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+            <i class="fa fa-file-alt"></i> Marksheet
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" [routerLink]="['/marksheet']">
+              <i class="fa fa-plus"></i> Add Marksheet</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/marksheetList']">
+              <i class="fa fa-list"></i> Marksheet List</a></li>
+          </ul>
+        </li>
+
+        <!-- Course Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+            <i class="fa fa-book"></i> Course
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" [routerLink]="['/course']">
+              <i class="fa fa-plus"></i> Add Course</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/courseList']">
+              <i class="fa fa-list"></i> Course List</a></li>
+          </ul>
+        </li>
+
+        <!-- TimeTable Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+            <i class="fa fa-calendar"></i> TimeTable
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" [routerLink]="['/timetable']">
+              <i class="fa fa-plus"></i> Add TimeTable</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/timetableList']">
+              <i class="fa fa-list"></i> TimeTable List</a></li>
+          </ul>
+        </li>
+
+     
+
+       <!-- Faculty Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+            <i class="fa fa-chalkboard-teacher"></i> Faculty
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" [routerLink]="['/faculty']">
+              <i class="fa fa-plus"></i> Add Faculty</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/facultyList']">
+              <i class="fa fa-list"></i> Faculty List</a></li>
+          </ul>
+        </li>
+
+      
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+            <i class="fa fa-user-circle"></i> Hi, {{form.data.fname}} ( {{form.data.role}} )          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" (click)="forward()">
+                <i class="fa fa-user"></i> My Profile
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" [routerLink]="['/changepassword']">
+                <i class="fa fa-key"></i> Change Password
+              </a>
+            </li>
+           
+            <li>
+              <a class="dropdown-item" (click)="logout()">
+                <i class="fa fa-sign-out-alt"></i> Logout
+              </a>
+            </li>
+          </ul>
+        </li>
+ </ul>
+
+      <!-- Right Menu for Guest -->
+      <ul class="navbar-nav ml-auto" *ngIf="!isLogin()">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+            <i class="fa fa-user-circle"></i> Hi, Guest
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" [routerLink]="['/login']">
+              <i class="fa fa-sign-in-alt"></i> Login</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/welcome']">
+              <i class="fa fa-home"></i> Welcome</a></li>
+          </ul>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</nav>

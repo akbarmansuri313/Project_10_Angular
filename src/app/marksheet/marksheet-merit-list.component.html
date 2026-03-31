@@ -1,0 +1,116 @@
+<style>
+/* Background */
+.merit-bg {
+  background-image: url('/assets/login2.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  padding-top: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-bottom: 30px;
+}
+
+/* Card */
+.merit-card {
+  width: 100%;
+  max-width: 900px;
+  border-radius: 10px;
+  background: linear-gradient(to bottom right, white, #e9ecef);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  padding: 25px;
+  margin: 10px;
+}
+
+/* Table header */
+.table th {
+  background-color: #e1e6f1e3;
+}
+
+/* Top rank highlight */
+.top-rank {
+  background-color: #d4edda !important;
+  font-weight: bold;
+}
+</style>
+
+<br><br><br><br>
+
+<div class="container-fluid merit-bg">
+  <div class="card merit-card shadow-lg">
+
+    <!-- Title -->
+    <h2 class="text-center text-dark mb-3">
+      🏆 Marksheet Merit List
+    </h2>
+
+    <!-- Messages -->
+    <div class="text-center mb-3">
+      <span class="alert alert-success p-1" *ngIf="!form.error && form.message">
+        {{form.message}}
+      </span>
+      <span class="alert alert-danger p-1" *ngIf="form.error && form.message">
+        {{form.message}}
+      </span>
+    </div>
+
+    <!-- Buttons -->
+    <div class="text-center mb-3">
+      <button class="btn btn-primary mx-2" (click)="forward('/jasper')">
+        Print
+      </button>
+      <button class="btn btn-secondary mx-2" (click)="forward('/marksheetList')">
+        Back
+      </button>
+    </div>
+
+    <!-- Table -->
+    <div *ngIf="form.list.length > 0" class="table-responsive">
+
+      <table class="table table-bordered text-center align-middle">
+
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Roll No</th>
+            <th>Name</th>
+            <th>Physics</th>
+            <th>Chemistry</th>
+            <th>Maths</th>
+            <th>Total</th>
+            <th>Percentage (%)</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let m of form.list; let i = index"
+              [ngClass]="{'top-rank': i === 0}">
+
+            <td>{{(form.pageNo * 5) + i + 1}}</td>
+            <td>{{m.rollNo}}</td>
+            <td>{{m.name}}</td>
+            <td>{{m.physics}}</td>
+            <td>{{m.chemistry}}</td>
+            <td>{{m.maths}}</td>
+
+            <td>
+              {{m.physics + m.chemistry + m.maths}}
+            </td>
+
+            <td>
+              {{((m.physics + m.chemistry + m.maths) * 100) / 300 | number:'2.0-2'}} %
+            </td>
+
+          </tr>
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+</div>
+
+<br><br><br><br>

@@ -1,0 +1,108 @@
+<br><br><br>
+
+<div class="container my-4">
+
+  <div class="card shadow-sm p-4">
+
+    <!-- Title -->
+    <h1 class="text-center text-primary mb-4">Role List</h1>
+
+    <!-- Messages -->
+    <div class="text-center mb-3">
+      <div *ngIf="!form.error && form.message" class="alert alert-success py-1">
+        {{ form.message }}
+      </div>
+      <div *ngIf="form.error && form.message" class="alert alert-danger py-1">
+        {{ form.message }}
+      </div>
+    </div>
+
+    <!-- Search -->
+    <div *ngIf="form.list.length > 0" class="mb-3">
+      <form class="row g-2 align-items-end">
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Role</label>
+          <select class="form-select" name="id" [(ngModel)]="form.searchParams.id">
+            <option value="undefined">------------Select------------</option>
+            <option *ngFor="let obj of form.preload.roleList" [value]="obj.key">
+              {{obj.value}}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-md-4 d-flex">
+          <button type="button" class="btn btn-primary me-2" (click)="search()">Search</button>
+          <button type="button" class="btn btn-secondary" (click)="reset()">Reset</button>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Table -->
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover text-center align-middle">
+
+        <thead class="table-light">
+          <tr>
+            <th>
+              <input type="checkbox" [(ngModel)]="isMasterSel" (change)="checkUncheckAll($event)" />
+            </th>
+            <th>S.No</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Edit</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let m of form.list; let i = index">
+            <td>
+              <input type="checkbox" #checkboxes (change)="checklistUpdate()" [id]="m.id" [value]="isMasterSel">
+            </td>
+            <td>{{ (form.pageNo * 5) + i + 1 }}</td>
+            <td>{{ m.name }}</td>
+            <td>{{ m.description }}</td>
+            <td>
+              <a (click)="forward('/role/' + m.id)" style="cursor: pointer; color: blue;">
+                Edit
+              </a>
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+
+    <!-- Pagination + Actions -->
+    <div class="d-flex justify-content-between mt-3">
+
+      <button class="btn btn-outline-primary"
+              (click)="previous()"
+              [disabled]="form.pageNo == 0">
+        Previous
+      </button>
+
+      <div>
+        <button class="btn btn-success me-2" (click)="forward('/role')">New</button>
+        <button class="btn btn-danger" (click)="deleteMany()">Delete</button>
+      </div>
+
+      <button class="btn btn-outline-primary"
+              (click)="next()"
+              [disabled]="form.nextListSize == 0">
+        Next
+      </button>
+
+    </div>
+
+    <!-- No Data -->
+    <div *ngIf="form.list.length == 0" class="text-center mt-4">
+      <button class="btn btn-secondary" (click)="reset()">Back</button>
+    </div>
+
+  </div>
+
+</div>
+
+<br><br><br>

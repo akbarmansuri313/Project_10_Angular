@@ -1,0 +1,180 @@
+<style>
+/* Full-page background under navbar */
+.login-bg {
+  background-image: url('/assets/login2.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  padding-top: 80px; /* space for navbar */
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-bottom: 30px;
+}
+
+/* User card with responsive width */
+.user-card {
+  width: 100%;
+  max-width: 700px; /* wider for large screens */
+  border-radius: 10px;
+  background: linear-gradient(to bottom right, white, #e9ecef);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  padding: 40px;
+  margin: 10px;
+  overflow: auto; /* allow scrolling if form is tall */
+}
+
+/* Input group icons */
+.input-group-text {
+  background: #ebebe0;
+  min-width: 45px;
+  justify-content: center;
+}
+
+/* Buttons */
+.user-card .btn {
+  min-width: 100px;
+}
+
+/* On small screens, make card full width */
+/* @media (max-width: 768px) {
+  .user-card {
+    margin: 10px;
+    padding: 20px;
+  }
+} */
+</style>
+<br>
+<br>
+<br>
+<br>
+
+<div class="container-fluid login-bg">
+  <div class="card user-card shadow-lg">
+
+    <!-- Title -->
+    <h2 class="text-center text-dark mb-3">
+      <span *ngIf="!form.data.id">Add User</span>
+      <span *ngIf="form.data.id">Update User</span>
+    </h2>
+
+    <!-- Messages -->
+    <div class="text-center mb-3">
+      <span class="alert alert-success p-1" *ngIf="!form.error && form.message">{{ form.message }}</span>
+      <span class="alert alert-danger p-1" *ngIf="form.error && form.message">{{ form.message }}</span>
+    </div>
+
+    <form>
+
+      <!-- First Name -->
+      <label class="fw-bold">First Name <span class="text-danger">*</span></label>
+      <div class="input-group mb-2">
+        <span class="input-group-text"><i class="fa fa-user"></i></span>
+        <input type="text" class="form-control" name="firstName" [(ngModel)]="form.data.firstName" placeholder="Enter first name">
+      </div>
+      <small class="text-danger">{{form.inputerror.firstName}}</small>
+
+      <!-- Last Name -->
+      <label class="fw-bold mt-3">Last Name <span class="text-danger">*</span></label>
+      <div class="input-group mb-2">
+        <span class="input-group-text"><i class="fa fa-user"></i></span>
+        <input type="text" class="form-control" name="lastName" [(ngModel)]="form.data.lastName" placeholder="Enter last name">
+      </div>
+      <small class="text-danger">{{form.inputerror.lastName}}</small>
+
+      <!-- Login ID -->
+      <label class="fw-bold mt-3">Email ID <span class="text-danger">*</span></label>
+      <div class="input-group mb-2">
+        <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+        <input type="text" class="form-control" name="loginId" [(ngModel)]="form.data.loginId" placeholder="Enter email">
+      </div>
+      <small class="text-danger">{{form.inputerror.loginId}}</small>
+
+      <!-- Password -->
+      <label class="fw-bold mt-3">Password <span class="text-danger">*</span></label>
+      <div class="input-group mb-2">
+        <span class="input-group-text"><i class="fa fa-lock"></i></span>
+        <input type="password" class="form-control" name="password" [(ngModel)]="form.data.password" placeholder="Enter password">
+      </div>
+      <small class="text-danger">{{form.inputerror.password}}</small>
+
+      <!-- Date of Birth -->
+      <label class="fw-bold mt-3">Date of Birth <span class="text-danger">*</span></label>
+      <div class="input-group mb-2">
+        <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+        <input type="date" class="form-control" name="dob" [(ngModel)]="form.data.dob" [ngModel]="form.data.dob | date:'yyyy-MM-dd'">
+      </div>
+      <small class="text-danger">{{form.inputerror.dob}}</small>
+
+      <!-- Gender -->
+      <label class="fw-bold mt-3">Gender <span class="text-danger">*</span></label>
+      <div class="input-group mb-2">
+        <span class="input-group-text"><i class="fa fa-venus-mars"></i></span>
+        <select class="form-control" name="gender" [(ngModel)]="form.data.gender">
+          <option value="undefined">------------Select------------</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+      </div>
+      <small class="text-danger">{{form.inputerror.gender}}</small>
+
+      <!-- Role -->
+      <label class="fw-bold mt-3">Role <span class="text-danger">*</span></label>
+      <div class="input-group mb-2">
+        <span class="input-group-text"><i class="fa fa-user-tag"></i></span>
+        <select class="form-control" name="roleId" [(ngModel)]="form.data.roleId">
+          <option value="undefined">------------Select------------</option>
+          <option *ngFor="let obj of form.preload.roleList" [value]="obj.key">{{obj.value}}</option>
+        </select>
+      </div>
+      <small class="text-danger">{{form.inputerror.roleId}}</small>
+
+      <!-- Mobile -->
+      <label class="fw-bold mt-3">Mobile <span class="text-danger">*</span></label>
+      <div class="input-group mb-2">
+        <span class="input-group-text"><i class="fa fa-phone"></i></span>
+        <input type="text" class="form-control" name="phone" [(ngModel)]="form.data.phone" maxlength="10" placeholder="Enter mobile number">
+      </div>
+      <small class="text-danger">{{form.inputerror.phone}}</small>
+
+      <!-- Alternate Mobile -->
+      <label class="fw-bold mt-3">Alternate Mobile <span class="text-danger">*</span></label>
+      <div class="input-group mb-2">
+        <span class="input-group-text"><i class="fa fa-phone"></i></span>
+        <input type="text" class="form-control" name="alternateMobile" [(ngModel)]="form.data.alternateMobile" maxlength="10" placeholder="Enter alternate mobile">
+      </div>
+      <small class="text-danger">{{form.inputerror.alternateMobile}}</small>
+
+      <!-- Image -->
+      <label class="fw-bold mt-3">Image</label>
+      <div class="input-group mb-2">
+        <input type="file" class="form-control" name="imageId" (change)="onFileSelect($event)" accept="image/*">
+      </div>
+
+      <!-- Status -->
+      <label class="fw-bold mt-3">Status <span class="text-danger">*</span></label>
+      <div class="input-group mb-3">
+        <span class="input-group-text"><i class="fa fa-toggle-on"></i></span>
+        <select class="form-control" name="status" [(ngModel)]="form.data.status">
+          <option value="undefined">------------Select------------</option>
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+      </div>
+      <small class="text-danger">{{form.inputerror.status}}</small>
+
+      <!-- Buttons -->
+      <div class="text-center mt-4">
+        <button class="btn btn-success" (click)="submit()">Save</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="btn btn-warning"  (click)="reset()">Reset</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+<br>
+<br>
+<br>
+<br>

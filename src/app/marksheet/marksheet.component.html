@@ -1,0 +1,125 @@
+<style>
+/* Background */
+.marksheet-bg {
+  background-image: url('/assets/login2.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  padding-top: 80px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-bottom: 30px;
+}
+
+/* Card */
+.marksheet-card {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 10px;
+  background: linear-gradient(to bottom right, white, #e9ecef);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  padding: 35px;
+  margin: 10px;
+}
+
+/* Icons */
+.input-group-text {
+  background: #ebebe0;
+  min-width: 45px;
+  justify-content: center;
+}
+</style>
+
+<br><br><br><br>
+
+<div class="container-fluid marksheet-bg">
+  <div class="card marksheet-card shadow-lg">
+
+    <!-- Title -->
+    <h2 class="text-center text-dark mb-3">
+      <span *ngIf="!form.data.id">Add Marksheet</span>
+      <span *ngIf="form.data.id">Update Marksheet</span>
+    </h2>
+
+    <!-- Messages -->
+    <div class="text-center mb-3">
+      <span class="alert alert-success p-1" *ngIf="!form.error && form.message">{{ form.message }}</span>
+      <span class="alert alert-danger p-1" *ngIf="form.error && form.message">{{ form.message }}</span>
+    </div>
+
+    <form>
+
+      <!-- Roll No -->
+      <label class="fw-bold">Roll No <span class="text-danger">*</span></label>
+      <div class="input-group mb-2">
+        <span class="input-group-text"><i class="fa fa-id-badge"></i></span>
+        <input type="text" class="form-control" name="rollNo"
+          [(ngModel)]="form.data.rollNo"
+          maxlength="5"
+          placeholder="Enter Roll No">
+      </div>
+      <small class="text-danger">{{form.inputerror.rollNo}}</small>
+
+      <!-- Student -->
+      <label class="fw-bold mt-3">Student Name <span class="text-danger">*</span></label>
+      <div class="input-group mb-2">
+        <span class="input-group-text"><i class="fa fa-user-graduate"></i></span>
+        <select class="form-control" name="studentId"
+          [(ngModel)]="form.data.studentId">
+          <option value="undefined">------------Select------------</option>
+          <option *ngFor="let obj of form.preload.studentList" [value]="obj.key">
+            {{obj.value}}
+          </option>
+        </select>
+      </div>
+      <small class="text-danger">{{form.inputerror.studentId}}</small>
+
+      <!-- Physics -->
+      <label class="fw-bold mt-3">Physics <span class="text-danger">*</span></label>
+      <div class="input-group mb-2">
+        <span class="input-group-text"><i class="fa fa-atom"></i></span>
+        <input type="text" class="form-control" name="physics"
+          [(ngModel)]="form.data.physics"
+          maxlength="3"
+          placeholder="Enter Physics Marks">
+      </div>
+      <small class="text-danger">{{form.inputerror.physics}}</small>
+
+      <!-- Chemistry -->
+      <label class="fw-bold mt-3">Chemistry <span class="text-danger">*</span></label>
+      <div class="input-group mb-2">
+        <span class="input-group-text"><i class="fa fa-flask"></i></span>
+        <input type="text" class="form-control" name="chemistry"
+          [(ngModel)]="form.data.chemistry"
+          maxlength="3"
+          placeholder="Enter Chemistry Marks">
+      </div>
+      <small class="text-danger">{{form.inputerror.chemistry}}</small>
+
+      <!-- Maths -->
+      <label class="fw-bold mt-3">Maths <span class="text-danger">*</span></label>
+      <div class="input-group mb-2">
+        <span class="input-group-text"><i class="fa fa-calculator"></i></span>
+        <input type="text" class="form-control" name="maths"
+          [(ngModel)]="form.data.maths"
+          maxlength="3"
+          placeholder="Enter Maths Marks">
+      </div>
+      <small class="text-danger">{{form.inputerror.maths}}</small>
+
+      <!-- Buttons -->
+      <div class="text-center mt-4">
+        <button type="button" class="btn btn-success" (click)="submit()">Save</button>
+        &nbsp;&nbsp;&nbsp;
+        <button type="button" class="btn btn-warning" (click)="reset()">Reset</button>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+
+<br><br><br><br>

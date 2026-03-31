@@ -1,0 +1,167 @@
+<style>
+/* Background */
+.faculty-bg {
+  background-image: url('/assets/login2.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  padding-top: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-bottom: 30px;
+}
+
+/* Card */
+.faculty-card {
+  width: 100%;
+  max-width: 1300px;
+  border-radius: 10px;
+  background: linear-gradient(to bottom right, white, #e9ecef);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  padding: 25px;
+  margin: 10px;
+}
+
+/* Table header */
+.table th {
+  background-color: #e1e6f1e3;
+}
+</style>
+
+<br><br><br><br>
+
+<div class="container-fluid faculty-bg">
+  <div class="card faculty-card shadow-lg">
+
+    <!-- Title -->
+    <h2 class="text-center text-dark mb-3">Faculty List</h2>
+
+    <!-- Messages -->
+    <div class="text-center mb-3">
+      <span class="alert alert-success p-1" *ngIf="!form.error && form.message">{{ form.message }}</span>
+      <span class="alert alert-danger p-1" *ngIf="form.error && form.message">{{ form.message }}</span>
+    </div>
+
+    <div *ngIf="form.list.length > 0">
+
+      <!-- Search -->
+      <div class="text-center mb-3">
+        <label class="fw-bold">First Name:</label>
+        <input type="text"
+          class="form-control d-inline-block w-auto mx-2"
+          [(ngModel)]="form.searchParams.firstName"
+          placeholder="Enter First Name">
+
+        <label class="fw-bold">Email Id:</label>
+        <input type="text"
+          class="form-control d-inline-block w-auto mx-2"
+          [(ngModel)]="form.searchParams.email"
+          placeholder="Enter Email ID">
+
+        <button class="btn btn-primary mx-1" (click)="search()">Search</button>
+        <button class="btn btn-secondary mx-1" (click)="reset()">Reset</button>
+      </div>
+
+      <!-- Table -->
+      <div class="table-responsive">
+        <table class="table table-bordered text-center align-middle">
+
+          <thead>
+            <tr>
+              <th>
+                <input type="checkbox"
+                  [(ngModel)]="isMasterSel"
+                  (change)="checkUncheckAll($event)" />
+              </th>
+              <th>S.No</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Date of Birth</th>
+              <th>Gender</th>
+              <th>Phone No</th>
+              <th>Email ID</th>
+              <th>Qualification</th>
+              <th>College</th>
+              <th>Course</th>
+              <th>Subject</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let m of form.list; let i = index">
+              <td>
+                <input type="checkbox"
+                  #checkboxes
+                  (change)="checklistUpdate()"
+                  [id]="m.id">
+              </td>
+              <td>{{(form.pageNo*5)+i+1}}</td>
+              <td>{{m.firstName}}</td>
+              <td>{{m.lastName}}</td>
+              <td>{{m.dob | date:'dd-MM-yyyy'}}</td>
+              <td>{{m.gender}}</td>
+              <td>{{m.phoneNo}}</td>
+              <td>{{m.email}}</td>
+              <td>{{m.qualification}}</td>
+              <td>{{m.collegeName}}</td>
+              <td>{{m.courseName}}</td>
+              <td>{{m.subjectName}}</td>
+              <td>
+                <button class="btn btn-sm btn-info"
+                  (click)="forward('/faculty/' + m.id)">
+                  Edit
+                </button>
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
+
+      <!-- Pagination + Actions -->
+      <div class="row mt-3 text-center">
+
+        <div class="col-md-3">
+          <button class="btn btn-primary w-100"
+            (click)="previous()" [disabled]="form.pageNo == 0">
+            Previous
+          </button>
+        </div>
+
+        <div class="col-md-3">
+          <button class="btn btn-success w-100"
+            (click)="forward('/faculty')">
+            New
+          </button>
+        </div>
+
+        <div class="col-md-3">
+          <button class="btn btn-danger w-100"
+            (click)="deleteMany()">
+            Delete
+          </button>
+        </div>
+
+        <div class="col-md-3">
+          <button class="btn btn-primary w-100"
+            (click)="next()" [disabled]="form.nextListSize == 0">
+            Next
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- No Data -->
+    <div *ngIf="form.list.length == 0" class="text-center">
+      <button class="btn btn-secondary" (click)="reset()">Back</button>
+    </div>
+
+  </div>
+</div>
+
+<br><br><br><br>

@@ -1,0 +1,142 @@
+<style>
+/* Background renamed */
+.student-bg {
+  background-image: url('/assets/login2.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  padding-top: 80px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-bottom: 30px;
+}
+
+/* Card */
+.student-card {
+  width: 100%;
+  max-width: 650px;
+  border-radius: 10px;
+  background: linear-gradient(to bottom right, white, #e9ecef);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  padding: 35px;
+  margin: 10px;
+}
+
+/* Icons */
+.input-group-text {
+  background: #ebebe0;
+  min-width: 45px;
+  justify-content: center;
+}
+</style>
+
+<br><br><br><br>
+
+<div class="container-fluid student-bg">
+  <div class="card student-card shadow-lg">
+
+    <!-- Title -->
+    <h2 class="text-center text-dark mb-3">
+      <span *ngIf="!form.data.id">Add Student</span>
+      <span *ngIf="form.data.id">Update Student</span>
+    </h2>
+
+    <!-- Messages -->
+    <div class="text-center mb-3">
+      <span class="alert alert-success p-1" *ngIf="!form.error && form.message">{{ form.message }}</span>
+      <span class="alert alert-danger p-1" *ngIf="form.error && form.message">{{ form.message }}</span>
+    </div>
+
+    <form>
+
+      <!-- Enrol No -->
+      <label class="fw-bold">Enrol No <span class="text-danger">*</span></label>
+      <div class="input-group mb-2">
+        <span class="input-group-text"><i class="fa fa-id-card"></i></span>
+        <input type="text" class="form-control" name="enrolNo"
+          [(ngModel)]="form.data.enrolNo"
+          placeholder="Enter Enrol No">
+      </div>
+      <small class="text-danger">{{form.inputerror.enrolNo}}</small>
+
+      <!-- First Name -->
+      <label class="fw-bold mt-3">First Name <span class="text-danger">*</span></label>
+      <div class="input-group mb-2">
+        <span class="input-group-text"><i class="fa fa-user"></i></span>
+        <input type="text" class="form-control" name="firstName"
+          [(ngModel)]="form.data.firstName"
+          placeholder="Enter First Name">
+      </div>
+      <small class="text-danger">{{form.inputerror.firstName}}</small>
+
+      <!-- Last Name -->
+      <label class="fw-bold mt-3">Last Name <span class="text-danger">*</span></label>
+      <div class="input-group mb-2">
+        <span class="input-group-text"><i class="fa fa-user"></i></span>
+        <input type="text" class="form-control" name="lastName"
+          [(ngModel)]="form.data.lastName"
+          placeholder="Enter Last Name">
+      </div>
+      <small class="text-danger">{{form.inputerror.lastName}}</small>
+
+      <!-- Email -->
+      <label class="fw-bold mt-3">Email ID <span class="text-danger">*</span></label>
+      <div class="input-group mb-2">
+        <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+        <input type="text" class="form-control" name="email"
+          [(ngModel)]="form.data.email"
+          placeholder="Enter Email ID">
+      </div>
+      <small class="text-danger">{{form.inputerror.email}}</small>
+
+      <!-- DOB -->
+      <label class="fw-bold mt-3">Date of Birth <span class="text-danger">*</span></label>
+      <div class="input-group mb-2">
+        <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+        <input type="date" class="form-control" name="dob"
+          [(ngModel)]="form.data.dob"
+          [ngModel]="form.data.dob | date:'yyyy-MM-dd'">
+      </div>
+      <small class="text-danger">{{form.inputerror.dob}}</small>
+
+      <!-- College -->
+      <label class="fw-bold mt-3">College <span class="text-danger">*</span></label>
+      <div class="input-group mb-2">
+        <span class="input-group-text"><i class="fa fa-university"></i></span>
+        <select class="form-control" name="collegeId"
+          [(ngModel)]="form.data.collegeId">
+          <option value="undefined">------------Select------------</option>
+          <option *ngFor="let obj of form.preload.collegeList" [value]="obj.key">
+            {{obj.value}}
+          </option>
+        </select>
+      </div>
+      <small class="text-danger">{{form.inputerror.collegeId}}</small>
+
+      <!-- Mobile -->
+      <label class="fw-bold mt-3">Mobile No <span class="text-danger">*</span></label>
+      <div class="input-group mb-2">
+        <span class="input-group-text"><i class="fa fa-phone"></i></span>
+        <input type="text" class="form-control" name="phoneNo"
+          [(ngModel)]="form.data.phoneNo"
+          maxlength="10"
+          placeholder="Enter Mobile No">
+      </div>
+      <small class="text-danger">{{form.inputerror.phoneNo}}</small>
+
+      <!-- Buttons -->
+      <div class="text-center mt-4">
+        <button type="button" class="btn btn-success" (click)="submit()">Save</button>
+        &nbsp;&nbsp;&nbsp;
+        <button type="button" class="btn btn-warning" (click)="reset()">Reset</button>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+
+<br><br><br><br>

@@ -1,0 +1,109 @@
+<style>
+.profile-bg {
+  background-image: url('/assets/login2.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+.profile-card {
+  width: 500px;
+  border-radius: 10px;
+  background: linear-gradient(to bottom right, white, grey);
+  box-shadow: 9px 8px 7px #001a33;
+  padding: 30px;
+}
+
+.input-group-text {
+  background: #ebebe0;
+}
+</style>
+<br>
+<br>
+<br>
+<div class="container-fluid d-flex justify-content-center align-items-center profile-bg">
+
+  <div class="card profile-card">
+
+    <h3 class="text-center text-dark mb-3"><b>My Profile</b></h3>
+
+    <!-- Success / Error Message -->
+    <div class="text-center mb-2">
+      <span class="alert alert-success py-1" *ngIf="!form.error && form.message">
+        {{ form.message }}
+      </span>
+      <span class="alert alert-danger py-1" *ngIf="form.error && form.message">
+        {{ form.message }}
+      </span>
+    </div>
+
+    <!-- First Name -->
+    <label class="fw-bold">First Name <span class="text-danger">*</span></label>
+    <div class="input-group mb-2">
+      <span class="input-group-text"><i class="fa fa-user"></i></span>
+      <input type="text" class="form-control" name="firstName" [(ngModel)]="form.data.firstName"
+        placeholder="Enter First Name">
+    </div>
+    <small class="text-danger">{{ form.inputerror.firstName }}</small>
+
+    <!-- Last Name -->
+    <label class="fw-bold mt-2">Last Name <span class="text-danger">*</span></label>
+    <div class="input-group mb-2">
+      <span class="input-group-text"><i class="fa fa-user"></i></span>
+      <input type="text" class="form-control" name="lastName" [(ngModel)]="form.data.lastName"
+        placeholder="Enter Last Name">
+    </div>
+    <small class="text-danger">{{ form.inputerror.lastName }}</small>
+
+    <!-- Login Id (readonly) -->
+    <label class="fw-bold mt-2">Login Id <span class="text-danger">*</span></label>
+    <div class="input-group mb-2">
+      <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+      <input type="text" class="form-control" name="loginId" [(ngModel)]="form.data.loginId"
+        readonly placeholder="Enter Login ID">
+    </div>
+    <small class="text-danger">{{ form.inputerror.loginId }}</small>
+
+    <!-- Date of Birth -->
+    <label class="fw-bold mt-2">Date of Birth <span class="text-danger">*</span></label>
+    <div class="input-group mb-2">
+      <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+      <input type="date" class="form-control" name="dob" [(ngModel)]="form.data.dob"
+        [ngModel]="form.data.dob | date:'yyyy-MM-dd'">
+    </div>
+    <small class="text-danger">{{ form.inputerror.dob }}</small>
+
+    <!-- Gender -->
+    <label class="fw-bold mt-2">Gender <span class="text-danger">*</span></label>
+    <div class="input-group mb-2">
+      <span class="input-group-text"><i class="fa fa-venus-mars"></i></span>
+      <select class="form-select" name="gender" [(ngModel)]="form.data.gender">
+        <option value="">------------Select------------</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+    </div>
+    <small class="text-danger">{{ form.inputerror.gender }}</small>
+
+    <!-- Mobile -->
+    <label class="fw-bold mt-2">Mobile <span class="text-danger">*</span></label>
+    <div class="input-group mb-2">
+      <span class="input-group-text"><i class="fa fa-phone"></i></span>
+      <input type="text" class="form-control" name="phone" [(ngModel)]="form.data.phone"
+        maxlength="10" placeholder="Enter Mobile No.">
+    </div>
+    <small class="text-danger">{{ form.inputerror.phone }}</small>
+
+    <!-- Buttons Centered -->
+    <div class="text-center mt-4">
+      <button class="btn btn-success me-2 px-4" (click)="myProfile()">Save</button>&nbsp;&nbsp;&nbsp;
+      <button class="btn btn-primary px-4" (click)="forward('/userlist')">List</button>
+    </div>
+
+  </div>
+
+</div>
+<br>
+<br>
+<br>
